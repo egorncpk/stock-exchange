@@ -1,11 +1,15 @@
 <template lang="pug">
-  div#app
-    router-view
+  div chart
 </template>
 
 <script>
+
 export default {
-  name: 'App',
-  mounted() {}
+  name: 'Chart'
 }
+
 </script>
+
+<style lang="less" scoped>
+
+</style>
