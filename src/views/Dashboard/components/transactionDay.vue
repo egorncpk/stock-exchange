@@ -1,36 +1,46 @@
 <template lang="pug">
   .transaction-day
-    //- .header
-      .col__head(v-for='type in names', :key="type.id") {{type.name}}
-    //- .content
-      .col__cell(v-for='item in values', :key="index") {{data[item]}}
-
-    .groupe(v-for='type in names', :key="type.id")
-      .name {{type.name}}:
-      .value {{data[type]}}
+    .recommendation-text Рекомендация к покупке:
+    .groupe(v-if="isEmptyObj(bestTransaction)", v-for='type in names', :key="type.id")
+      .name {{type.name}}
+      .value {{trim(bestTransaction[type.value])}}
 
 </template>
 
 <script>
+import { trimmingNumbers } from '../../../utils'
 
 export default {
   name: 'TransactionDay',
+  props: {
+    bestTransaction: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
       names: [
-        { id: '0', name: 'Type' },
-        { id: '1', name: 'Buy' },
-        { id: '2', name: 'Sell' },
-        { id: '3', name: '↑' },
-        { id: '4', name: '↓' }
+        { id: '0', value: 'ticker', name: 'Акции:' },
+        { id: '1', value: 'buy', name: 'Покупка:' },
+        { id: '2', value: 'sell', name: 'Продажа:' },
+        { id: '3', value: 'perc', name: 'Прибыль:' },
+        { id: '4', value: 'stop-lose', name: 'Стоп цена:' }
       ],
-      values: ['ticker', 'buy', 'sell', 'perc'],
-      data: {
-        'ticker': 'TSLA',
-        'buy': 381.066893232,
-        'sell': 380.5764298082,
-        'perc': -0.1288738307
-      }
+      values: ['ticker', 'buy', 'sell', 'perc']
+    }
+  },
+  watch: {
+    bestTransaction(e) {
+      this.bestTransaction = e
+    }
+  },
+  methods: {
+    isEmptyObj(obj) {
+      return Object.keys(obj).length
+    },
+    trim(e) {
+      return e && typeof e !== 'string' ? trimmingNumbers(e) : e
     }
   }
 }
@@ -39,25 +49,40 @@ export default {
 
 <style lang="less" scoped>
 
+  @import '../../../styles/variables';
+
   .transaction-day {
     display: flex;
     align-items: center;
     flex-direction: row;
-    min-height: 50px;
+    justify-content: flex-end;
+    height: @transition-day;
     width: 100%;
-    padding: 15px;
+    padding: 15px 15px 0;
+
+    .recommendation-text {
+      color: #fff;
+      font-size: 1.2em;
+      margin-right: 15px;
+    }
 
     .groupe {
       display: flex;
       flex-direction: row;
+      font-size: 1.2em;
+
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
 
       .name {
-        width: 40px;
+        // width: 40px;
         color: rgb(98, 102, 130);
       }
 
       .value {
         color: #fff;
+        margin-left: 8px;
       }
 
     }
