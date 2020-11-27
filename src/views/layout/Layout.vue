@@ -2,7 +2,7 @@
   .app-wrapper
     navigation-bar.top-panel(ref="topPanel")
     .main-container(ref="main")
-      side-bar
+      //- side-bar
       app-main.app-main
 </template>
 

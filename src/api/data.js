@@ -1,6 +1,6 @@
 import { request } from '../utils/request'
 
-const baseUrl = url => 'stocknn/' + url
+const baseUrl = url => '' + url
 
 export function getInfo() {
   return request({

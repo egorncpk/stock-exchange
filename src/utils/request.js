@@ -2,8 +2,8 @@ import axios from 'axios'
 import store from '@/store'
 
 export const request = axios.create({
-  baseURL: `${window.location.protocol}//${window.location.host}`,
-  // baseURL: `http://stocknn.ru/`,
+  // baseURL: `${window.location.protocol}//${window.location.host}`,
+  baseURL: `https://stocknn.ru/`,
   headers: {
     // 'Access-Control-Allow-Origin': 'http://stocknn.ru',
     'Access-Control-Allow-Origin': '*',
@@ -12,7 +12,7 @@ export const request = axios.create({
   json: true
 })
 
-request.interceptors.request.use(config => {
+/* request.interceptors.request.use(config => {
   if (store.getters.token) {
     // config.headers['X-AUTH-TOKEN'] = getToken()
   }
@@ -20,7 +20,7 @@ request.interceptors.request.use(config => {
     ...config,
     cancelToken: store.token
   }
-})
+}) */
 
 request.interceptors.response.use(
   response => { return response },

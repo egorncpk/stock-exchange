@@ -1,7 +1,5 @@
 import { routes } from '../../router/index'
 
-console.log(routes)
-
 const permission = {
   state: {
     routers: routes,

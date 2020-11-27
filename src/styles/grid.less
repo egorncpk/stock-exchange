@@ -1,0 +1,26 @@
+// grid
+@gutter: 4px;
+
+.grid(@class; @columns; @index: 1) when (@index <= @columns) {
+  .grid(@class; @columns; (@index + 1));
+
+  .@{class}-@{index} {
+    padding-left: @gutter;
+    padding-right: @gutter;
+    width: (percentage(@index/@columns));
+  }
+}
+
+.container {
+  margin: 0 auto;
+
+  &-fluid { max-width: inherit; }
+}
+
+.row {
+  // margin-left: -@gutter;
+  // margin-right: -@gutter;
+  display: flex;
+  flex-wrap: wrap;
+  .grid(col; 12);
+}

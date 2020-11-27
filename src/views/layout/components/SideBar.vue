@@ -3,7 +3,7 @@
     .menu__wrap
       .menu(ref="menu")
         template
-          div(v-for="item in routes", :key="index")
+          div(v-for="(item, index) in routes", :key="index")
             router-link(:to="item.path+'/'+item.children[0].path")
               .submenu-title {{item.children[0].meta.title}}
 </template>
@@ -17,12 +17,6 @@ export default {
     return {
       routes: this.$router.options.routes
     }
-  },
-  computed: {
-    // ...mapGetters(['permission_routes'])
-  },
-  mounted() {
-    console.log(this.$router)
   }
 }
 </script>
